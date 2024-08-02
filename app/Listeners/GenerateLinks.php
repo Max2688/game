@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Services\GenerateLink;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -15,9 +16,9 @@ class GenerateLinks
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
+    public function __construct(
+        private GenerateLink $generateLink
+    ){
     }
 
     /**
@@ -28,12 +29,6 @@ class GenerateLinks
      */
     public function handle(Registered $event)
     {
-        $uniqueLink = Str::random(32);
-
-        $event->user->links()->create([
-            'unique_link' => $uniqueLink,
-            'expires_at' => Carbon::now()->addDays(7),
-        ]);
-
+        $this->generateLink->generateLink($event->user);
     }
 }

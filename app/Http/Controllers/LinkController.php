@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Link;
+use App\Services\GenerateLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class LinkController extends Controller
 {
     const WIN = 'Win';
     const LOSE = 'Lose';
+
+    public function __construct(
+        private GenerateLink $generateLink
+    ){
+    }
 
     public function index($unique_link)
     {
@@ -26,14 +31,9 @@ class LinkController extends Controller
 
     public function generateLink()
     {
-        $uniqueLink = Str::random(32);
+        $link = $this->generateLink->generateLink(Auth::user());
 
-        $link = Auth::user()->links()->create([
-            'unique_link' => $uniqueLink,
-            'expires_at' => Carbon::now()->addDays(7),
-        ]);
-
-        return response()->json(['unique_link' => $link->unique_link]);
+        return response()->json(['unique_link' => $link]);
     }
 
     public function deactivateLink(Request $request)
