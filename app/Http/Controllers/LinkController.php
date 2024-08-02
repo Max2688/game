@@ -52,15 +52,12 @@ class LinkController extends Controller
         $winAmount = 0;
 
         if ($result === self::WIN) {
-            if ($randomNumber > 900) {
-                $winAmount = $randomNumber * 0.7;
-            } elseif ($randomNumber > 600) {
-                $winAmount = $randomNumber * 0.5;
-            } elseif ($randomNumber > 300) {
-                $winAmount = $randomNumber * 0.3;
-            } else {
-                $winAmount = $randomNumber * 0.1;
-            }
+            $winAmount = match (true) {
+                $randomNumber > 900 => $randomNumber * 0.7,
+                $randomNumber > 600 => $randomNumber * 0.5,
+                $randomNumber > 300 => $randomNumber * 0.3,
+                default => $randomNumber * 0.1,
+            };
         }
 
         return response()->json([
