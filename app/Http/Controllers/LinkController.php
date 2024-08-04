@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Link;
-use App\Services\GenerateLink;
+use App\Services\GenerateLinkInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +14,7 @@ class LinkController extends Controller
     const LOSE = 'Lose';
 
     public function __construct(
-        private GenerateLink $generateLink
+        private GenerateLinkInterface $generateLink
     ){
     }
 

@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\Link;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
-class GenerateLink
+class GenerateLink implements GenerateLinkInterface
 {
     public function generateLink(User|Authenticatable $user): string
     {
