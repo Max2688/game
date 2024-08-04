@@ -16,7 +16,7 @@ class GenerateLinkTest extends TestCase
      *
      * @return void
      */
-    public function testGenerateLink()
+    public function testServiceGenerateLink()
     {
         $user = User::factory()->create();
 
