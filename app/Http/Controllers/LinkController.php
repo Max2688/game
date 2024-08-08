@@ -3,18 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Link;
-use App\Services\GenerateLinkInterface;
+use App\Services\Game\GenerateLinkInterface;
+use App\Services\Game\ValueObjects\WinResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class LinkController extends Controller
 {
-    const WIN = 'Win';
-    const LOSE = 'Lose';
-
     public function __construct(
-        private GenerateLinkInterface $generateLink
+        private GenerateLinkInterface $service
     ){
     }
 
@@ -31,7 +29,7 @@ class LinkController extends Controller
 
     public function generateLink()
     {
-        $link = $this->generateLink->generateLink(Auth::user());
+        $link = $this->service->generateLink(Auth::user());
 
         return response()->json(['unique_link' => $link]);
     }
@@ -48,22 +46,13 @@ class LinkController extends Controller
     public function imFeelingLucky()
     {
         $randomNumber = rand(1, 1000);
-        $result = $randomNumber % 2 == 0 ? self::WIN : self::LOSE;
-        $winAmount = 0;
 
-        if ($result === self::WIN) {
-            $winAmount = match (true) {
-                $randomNumber > 900 => $randomNumber * 0.7,
-                $randomNumber > 600 => $randomNumber * 0.5,
-                $randomNumber > 300 => $randomNumber * 0.3,
-                default => $randomNumber * 0.1,
-            };
-        }
+        $winResult = new WinResult($randomNumber);
 
         return response()->json([
-            'number' => $randomNumber,
-            'result' => $result,
-            'winAmount' => $winAmount,
+            'number' => $winResult->getRandomNumber(),
+            'result' => $winResult->getResult(),
+            'winAmount' => $winResult->getWinAmount(),
         ]);
     }
 }

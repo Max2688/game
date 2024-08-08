@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Game;
 
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;

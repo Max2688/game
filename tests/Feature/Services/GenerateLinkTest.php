@@ -3,7 +3,7 @@
 namespace Services;
 
 use App\Models\User;
-use App\Services\GenerateLink;
+use App\Services\Game\GenerateLink;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

@@ -2,12 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Services\GenerateLink;
+use App\Services\Game\GenerateLink;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 
 class GenerateLinks
 {

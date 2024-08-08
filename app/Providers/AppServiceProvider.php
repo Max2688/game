@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Services\GenerateLink;
-use App\Services\GenerateLinkInterface;
+use App\Services\Game\GenerateLink;
+use App\Services\Game\GenerateLinkInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

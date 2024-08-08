@@ -4,7 +4,7 @@ namespace Http\Controllers;
 
 use App\Http\Controllers\LinkController;
 use App\Models\User;
-use App\Services\GenerateLinkInterface;
+use App\Services\Game\GenerateLinkInterface;
 use Illuminate\Support\Facades\Auth;
 use Mockery;
 use Tests\TestCase;
